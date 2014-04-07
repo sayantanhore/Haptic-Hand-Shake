@@ -1,4 +1,4 @@
-FSR
+FSR(Force Sensing Resistor)
 
 1. One end to + 5V
 2. Other end to Analog 0 and bypassed by 10 k-OHM to GND
