@@ -134,6 +134,75 @@ void showDataLocation(){
     
     ellipse(X, Y, 20, 20);
   }
+  
+  else if(overFSR2 == true){
+    
+    // From Arduino to Servo
+    
+    float X = bezierPoint(right + arduino.width, right + arduino.width, right + arduino.width + 65, right + arduino.width + 65, t);
+    float Y = bezierPoint((top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(right + arduino.width + 65, right + arduino.width + 65, right + arduino.width + 65, right + arduino.width + 65, t);
+    Y = bezierPoint((top + arduino.height) * a5_position_frac, (top + arduino.height) * a5_position_frac, (top + arduino.height) * a5_position_frac + 100, (top + arduino.height) * a5_position_frac + 100, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(right + arduino.width + 65, right + arduino.width + 65, right - 115, right - 115, t);
+    Y = bezierPoint((top + arduino.height) * a5_position_frac + 100, (top + arduino.height) * a5_position_frac + 100, (top + arduino.height) * a5_position_frac + 100, (top + arduino.height) * a5_position_frac + 100, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(right - 115, right - 115, right - 115, right - 115, t);
+    Y = bezierPoint((top + arduino.height) * a5_position_frac + 100, (top + arduino.height) * a5_position_frac + 100, (top + arduino.height) * a5_position_frac, (top + arduino.height) * a5_position_frac, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(right - 115, right - 115, left + arduino.width, left + arduino.width, t);
+    Y = bezierPoint((top + arduino.height) * a5_position_frac, (top + arduino.height) * a5_position_frac, (top + arduino.height) * a5_position_frac, (top + arduino.height) * a5_position_frac, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    // From Arduino to HeatPad
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(left + arduino.width, left + arduino.width, left + arduino.width / 2 + 220, left + arduino.width / 2 + 220, t);
+    Y = bezierPoint((top + arduino.height) * d13_position_frac, (top + arduino.height) * d13_position_frac, (top + arduino.height) * d13_position_frac, (top + arduino.height) * d13_position_frac, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(left + arduino.width / 2 + 220, left + arduino.width / 2 + 220, left + arduino.width / 2 + 220, left + arduino.width / 2 + 220, t);
+    Y = bezierPoint((top + arduino.height) * d13_position_frac, (top + arduino.height) * d13_position_frac, (top + heatPad.height) / 2 + 50, (top + heatPad.height) / 2 + 50, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(left + arduino.width / 2 + 220, left + arduino.width / 2 + 220, left + arduino.width / 2, left + arduino.width / 2, t);
+    Y = bezierPoint((top + heatPad.height) / 2 + 50, (top + heatPad.height) / 2 + 50, (top + heatPad.height) / 2 + 50, (top + heatPad.height) / 2 + 50, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(left + arduino.width / 2, left + arduino.width / 2, left + arduino.width / 2, left + arduino.width / 2, t);
+    Y = bezierPoint((top + heatPad.height) / 2 + 50, (top + heatPad.height) / 2 + 50, (top + heatPad.height) / 2, (top + heatPad.height) / 2, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    // From Arduino to Servo
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(left + arduino.width, left + arduino.width, left + arduino.width + servo.width / 2 + 200, left + arduino.width + servo.width / 2 + 200, t);
+    Y = bezierPoint((top + arduino.height) * pwm_9_position_frac, (top + arduino.height) * pwm_9_position_frac, (top + arduino.height) * pwm_9_position_frac, (top + arduino.height) * pwm_9_position_frac, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+    X = bezierPoint(left + arduino.width + servo.width / 2 + 200, left + arduino.width + servo.width / 2 + 200, left + arduino.width + servo.width / 2 + 200, left + arduino.width + servo.width / 2 + 200, t);
+    Y = bezierPoint((top + arduino.height) * pwm_9_position_frac, (top + arduino.height) * pwm_9_position_frac, (top + servo.height) / 2, (top + servo.height) / 2, t);
+    
+    ellipse(X, Y, 20, 20);
+    
+  }
   /*
   noStroke();
   fill(255, 0, 0);
