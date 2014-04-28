@@ -1,3 +1,8 @@
+import processing.serial.*;
+
+Serial inputPort = null;
+Serial outputPort = null;
+
 PImage arduino;
 PImage FSR;
 PImage servo;
@@ -22,6 +27,16 @@ float d13_position_frac = 0.710;
 float pwm_9_position_frac = 0.780;
 
 void setup(){
+  
+  try
+  {
+    String portname = Serial.list()[0];
+  
+    inputPort = new Serial(this, portname, 9600);
+  }
+  catch(Exception e){
+    println("Port not available");
+  }
   size(displayWidth, displayHeight);
   arduino = loadImage("arduino_uno_2.png");
   FSR = loadImage("FSR.jpg");
@@ -35,8 +50,36 @@ void setup(){
 }
 
 void draw(){
+  
+  if(inputPort != null){
+    if(inputPort.available() > 0){
+      int val = inputPort.read();
+      println(val);  
+      if(val == 49){
+        overFSR1 = true;
+      }
+      else if(val == 48){
+        overFSR1 = false;
+      }
+      else if(val == 51){
+        overFSR2 = true;
+      }
+      else if(val == 50){
+        overFSR2 = false;
+      }
+      
+    }
+    else{
+      overFSR1 = false;
+      overFSR2 = false;
+    }
+  }
+  
+  
   drawStatic();
+  
   showDataLocation();
+  //delay(200);
 }
 
 void showDataLocation(){
@@ -137,10 +180,17 @@ void showDataLocation(){
   
   else if(overFSR2 == true){
     
+    // For FSR to Arduino
+    
+    float X = bezierPoint(right - FSR.width * 3 / 2, right - FSR.width * 3 / 2, right, right, t);
+    float Y = bezierPoint(top + FSR.height, top + FSR.height, (top + arduino.height) * a0_position_frac, (top + arduino.height) * a0_position_frac, t);
+    
+    ellipse(X, Y, 20, 20);
+    
     // From Arduino to Servo
     
-    float X = bezierPoint(right + arduino.width, right + arduino.width, right + arduino.width + 65, right + arduino.width + 65, t);
-    float Y = bezierPoint((top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, t);
+    X = bezierPoint(right + arduino.width, right + arduino.width, right + arduino.width + 65, right + arduino.width + 65, t);
+    Y = bezierPoint((top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, (top + arduino.height) * a4_position_frac, t);
     
     ellipse(X, Y, 20, 20);
     
@@ -203,35 +253,7 @@ void showDataLocation(){
     ellipse(X, Y, 20, 20);
     
   }
-  /*
-  noStroke();
-  fill(255, 0, 0);
-  float t =  (frameCount/20.0)%1;
-  float X = bezierPoint(left, left - 30, left - 70, left - 100, t);
-  float Y = bezierPoint(posY, posY, posY, posY, t);
   
-  ellipse(X, Y, 20, 20);
-  
-  X = bezierPoint(left - 100, left - 100, left - 100, left - 100, t);
-  Y = bezierPoint(posY, posY + 30, posY + 70, posY + 100, t);
-  
-  ellipse(X, Y, 20, 20);
-  
-  X = bezierPoint(left - 100, left - 100, right - 100, right - 100, t);
-  Y = bezierPoint(posY + 100, posY + 100, posY + 100, posY + 100, t);
-  
-  ellipse(X, Y, 20, 20);
-  
-  X = bezierPoint(right - 100, right - 100, right - 100, right - 100, t);
-  Y = bezierPoint(posY + 100, posY + 70, posY + 30, posY, t);
-  
-  ellipse(X, Y, 20, 20);
-  
-  X = bezierPoint(right - 100, right - 70, right - 30, right, t);
-  Y = bezierPoint(posY, posY, posY, posY, t);
-  
-  ellipse(X, Y, 20, 20);
-  */
   popMatrix();
 }
 
