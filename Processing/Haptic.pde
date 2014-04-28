@@ -70,8 +70,8 @@ void draw(){
       
     }
     else{
-      overFSR1 = false;
-      overFSR2 = false;
+      //overFSR1 = false;
+      //overFSR2 = false;
     }
   }
   
@@ -79,7 +79,7 @@ void draw(){
   drawStatic();
   
   showDataLocation();
-  //delay(200);
+  //delay(150);
 }
 
 void showDataLocation(){
@@ -178,7 +178,7 @@ void showDataLocation(){
     ellipse(X, Y, 20, 20);
   }
   
-  else if(overFSR2 == true){
+  if(overFSR2 == true){
     
     // For FSR to Arduino
     
@@ -287,13 +287,14 @@ void drawStatic(){
   image(FSR, right - FSR.width * 2, top);
   
   stroke(255, 0, 0);
-  
-  if(overFSR1 == true){
-    image(heatPad, left + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
+  if(overFSR1 == true && overFSR2 == true){
     image(heatPadRed, right + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
-    image(servo, left + arduino.width + 200, (top - servo.height) / 2);
-    // Rotate Servo
+    image(heatPadRed, left + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
+
+
     float tempLeft = right + arduino.width + 200;
+       // float tempRight = right + arduino.width + 200;
+
     float rotateXPos = tempLeft * 1.007;
     float tempTop = (top - servo.height) / 2.0;
     float rotateYPos = tempTop + servo.height * 0.9;
@@ -304,9 +305,43 @@ void drawStatic(){
     translate(rotateXPos, rotateYPos);
     rotate(-PI / 2.0);
     translate(- rotateXPos, - rotateYPos);
+    
+    float tempRight = left + arduino.width + 200;
+
+    rotateXPos = tempRight * 1.007;
+    
+    translate(rotateXPos, rotateYPos);
+    rotate(PI / 2.0);
+    translate(- rotateXPos, - rotateYPos);
+    image(servo, tempRight, tempTop);
+    translate(rotateXPos, rotateYPos);
+    rotate(-PI / 2.0);
+    translate(- rotateXPos, - rotateYPos);
+
+    // Rotate Servo
+
+  }
+  else if(overFSR1 == true && overFSR2 == false){
+    image(heatPad, left + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
+    image(heatPadRed, right + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
+    image(servo, left + arduino.width + 200, (top - servo.height) / 2);
+    // Rotate Servo
+    float tempLeft = right + arduino.width + 200;
+    float rotateXPos = tempLeft * 1.007;
+    float tempTop = (top - servo.height) / 2.0;
+    float rotateYPos = tempTop + servo.height * 0.9;
+
+    translate(rotateXPos, rotateYPos);
+    rotate(PI / 2.0);
+    translate(- rotateXPos, - rotateYPos);
+    image(servo, tempLeft, tempTop);
+    
+    translate(rotateXPos, rotateYPos);
+    rotate(-PI / 2.0);
+    translate(- rotateXPos, - rotateYPos);
   }
   
-  else if(overFSR2 == true){
+  else if(overFSR1 == false && overFSR2 == true){
     image(heatPadRed, left + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
     image(heatPad, right + (arduino.width - heatPad.width) / 2, (top - heatPad.height) / 2);
     image(servo, right + arduino.width + 200, (top - servo.height) / 2);
